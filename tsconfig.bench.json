@@ -1,0 +1,12 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "target": "es2020",
+        "module":"CommonJS",
+        "sourceMap": true,
+        "outDir": "dist", /* Redirect output structure to the directory. */
+        "rootDir": "",
+        "moduleResolution": "node"
+    },
+    "include": ["src/**/*.ts","benchmarks/**/*.ts"]
+}
