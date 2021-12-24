@@ -37,13 +37,11 @@ console.log(`Sum: ${sum} === 633`);
 
 ```
 
-
 ## Runing tests
 
 -   `npm run lint`: runs the linter
 -   `npm run unit`: run unit tests
 -   `npm test`: run both lint and unit tests
--   
 
 ## Contribute
 
@@ -68,14 +66,13 @@ If you wan't to add something new, following this steps would be much apreciated
 
 ### Namespaces
 
-- [Interfaces](docs/interfaces.md)
-- [Types](docs/types.md)
+-   [Interfaces](docs/interfaces.md)
+-   [Types](docs/types.md)
 
 ### Classes
 
-- [Enumerable](docs/classes/enumerable.md)
-- [EnumerableAsync](docs/classes/enumerableasync.md)
-
+-   [Enumerable](docs/classes/enumerable.md)
+-   [EnumerableAsync](docs/classes/enumerableasync.md)
 
 ## Examples
 
@@ -84,7 +81,6 @@ For more examples just check the tests folder
 ## Why this module
 
 To bring the best features of linq and it's easy usability to typescript with a fast implementation
-
 
 ## Credits
 
