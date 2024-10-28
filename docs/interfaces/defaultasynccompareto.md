@@ -12,19 +12,19 @@
 
 ## Hierarchy
 
--   [`IAsyncCompareTo`][]<`A`\>
+- [`IAsyncCompareTo`][]<`A`\>
 
-    ↳ **`DefaultAsyncCompareTo`**
+  ↳ **`DefaultAsyncCompareTo`**
 
 ## Table of contents
 
 ### Constructors
 
--   [constructor](#constructor)
+- [constructor](#constructor)
 
 ### Methods
 
--   [CompareTo](#compareto)
+- [CompareTo](#compareto)
 
 ## Constructors
 

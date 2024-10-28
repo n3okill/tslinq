@@ -6,9 +6,9 @@
 
 ## Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `A` | `number` |
+| Name | Type     |
+| :--- | :------- |
+| `A`  | `number` |
 
 ## Hierarchy
 
@@ -34,9 +34,9 @@
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `A` | `number` |
+| Name | Type     |
+| :--- | :------- |
+| `A`  | `number` |
 
 #### Inherited from
 
@@ -46,23 +46,22 @@
 
 ### CompareTo
 
-▸ **CompareTo**(`x`, `y`): ``0`` \| ``1`` \| ``-1``
+▸ **CompareTo**(`x`, `y`): `0` \| `1` \| `-1`
 
 #### Parameters
 
 | Name | Type |
-| :------ | :------ |
-| `x` | `A` |
-| `y` | `A` |
+| :--- | :--- |
+| `x`  | `A`  |
+| `y`  | `A`  |
 
 #### Returns
 
-``0`` \| ``1`` \| ``-1``
+`0` \| `1` \| `-1`
 
 #### Overrides
 
 [`ICompareTo`][].[CompareTo](icompareto.md#compareto)
-
 
 [interfaces]: ../interfaces.md
 [`ICompareTo`]: icompareto.md

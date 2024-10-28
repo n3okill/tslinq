@@ -7,8 +7,8 @@
 ## Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 ## Hierarchy
 
@@ -35,8 +35,8 @@
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 #### Inherited from
 
@@ -51,9 +51,9 @@
 #### Parameters
 
 | Name | Type |
-| :------ | :------ |
-| `x` | `T` |
-| `y` | `T` |
+| :--- | :--- |
+| `x`  | `T`  |
+| `y`  | `T`  |
 
 #### Returns
 
@@ -62,7 +62,6 @@
 #### Overrides
 
 [`IEqualityComparer`][].[Equals](iequalitycomparer.md#equals)
-
 
 [interfaces]: ../interfaces.md
 [`IEqualityComparer`]: iequalitycomparer.md

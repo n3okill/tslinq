@@ -5,8 +5,8 @@
 ## Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 ## Hierarchy
 
@@ -17,6 +17,7 @@
 ## Table of contents
 
 ### Methods
+
 - [asEnumerableAsync](#asenumerableasync)
 - [empty](#empty)
 - [range](#range)
@@ -30,21 +31,21 @@
 
 #### Type parameters
 
-| Name |
-| :------ |
+| Name      |
+| :-------- |
 | `TSource` |
 
 #### Parameters
 
 | Name | Type |
-| :------ | :------ |
+| :-- | :-- |
 | `source` | [`EnumerableAsync`](enumerableasync.md)<`TSource`\> \| `AsyncIterable`<`TSource`\> \| `Iterable`<`TSource`\> |
 
 #### Returns
 
 [`EnumerableAsync`](enumerableasync.md)<`TSource`\>
 
-___
+---
 
 ### empty
 
@@ -56,21 +57,21 @@ Returns an `empty` [`IAsyncEnumerable<T>`][] that has the specified type argumen
 
 #### Type parameters
 
-| Name |
-| :------ |
+| Name      |
+| :-------- |
 | `TSource` |
 
 #### Parameters
 
 | Name | Type |
-| :------ | :------ |
+| :-- | :-- |
 | `type` | [`IConstructor`](../interfaces/Interfaces.IConstructor.md)<`Iterable`<`TSource`\> \| `AsyncIterable`<`TSource`\>\> |
 
 #### Returns
 
 [`EnumerableAsync`](enumerableasync.md)<`TSource`\>
 
-___
+---
 
 ### range
 
@@ -82,16 +83,16 @@ Generates a sequence of numbers within a specified range.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type                 |
+| :------ | :------------------- |
 | `start` | `string` \| `number` |
-| `count` | `number` |
+| `count` | `number`             |
 
 #### Returns
 
 [`IAsyncEnumerable`][]<`string` \| `number`\>
 
-___
+---
 
 ### repeat
 
@@ -103,22 +104,20 @@ Generates a sequence that contains one repeated value.
 
 #### Type parameters
 
-| Name |
-| :------ |
+| Name      |
+| :-------- |
 | `TSource` |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type      |
+| :-------- | :-------- |
 | `element` | `TSource` |
-| `count` | `number` |
+| `count`   | `number`  |
 
 #### Returns
 
 [`IAsyncEnumerable`][]<`TSource`\>
-
-
 
 [`IAsyncEnumerable`]: ../interfaces/iasyncenumerable.md
 [`IAsyncEnumerable<T>`]: ../interfaces/iasyncenumerable.md

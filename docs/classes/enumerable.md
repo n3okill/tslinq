@@ -4,8 +4,8 @@
 
 ## Type parameters
 
-| Name |
-| :------ |
+| Name      |
+| :-------- |
 | `TSource` |
 
 ## Hierarchy
@@ -23,8 +23,6 @@
 - [range](#range)
 - [repeat](#repeat)
 
-
-
 ## Methods
 
 ### asEnumerable
@@ -33,21 +31,21 @@
 
 #### Type parameters
 
-| Name |
-| :------ |
+| Name       |
+| :--------- |
 | `TSource2` |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type                                                                  |
+| :------- | :-------------------------------------------------------------------- |
 | `source` | [`Enumerable`](enumerable.md)<`TSource2`\> \| `Iterable`<`TSource2`\> |
 
 #### Returns
 
 [`Enumerable`](enumerable.md)<`TSource2`\>
 
-___
+---
 
 ### empty
 
@@ -59,16 +57,15 @@ Returns an `empty` [`IEnumerable<T>`][] that has the specified type argument.
 
 #### Type parameters
 
-| Name |
-| :------ |
+| Name       |
+| :--------- |
 | `TSource2` |
-
 
 #### Returns
 
 [`Enumerable`](enumerable.md)<`TSource2`\>
 
-___
+---
 
 ### range
 
@@ -80,16 +77,16 @@ Generates a sequence of numbers within a specified range.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type                 |
+| :------ | :------------------- |
 | `start` | `string` \| `number` |
-| `count` | `number` |
+| `count` | `number`             |
 
 #### Returns
 
 [`IEnumerable`][]<`string` \| `number`\>
 
-___
+---
 
 ### repeat
 
@@ -101,22 +98,20 @@ Generates a sequence that contains one repeated value.
 
 #### Type parameters
 
-| Name |
-| :------ |
+| Name       |
+| :--------- |
 | `TSource2` |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type       |
+| :-------- | :--------- |
 | `element` | `TSource2` |
-| `count` | `number` |
+| `count`   | `number`   |
 
 #### Returns
 
 [`IEnumerable`][]<`TSource2`\>
-
-
 
 [`IEnumerable`]: ../interfaces/ienumerable.md
 [`IEnumerable<T>`]: ../interfaces/ienumerable.md

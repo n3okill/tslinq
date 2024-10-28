@@ -7,8 +7,8 @@
 ## Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 ## Hierarchy
 
@@ -35,8 +35,8 @@
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 ## Methods
 
@@ -47,13 +47,12 @@
 #### Parameters
 
 | Name | Type |
-| :------ | :------ |
-| `x` | `T` |
-| `y` | `T` |
+| :--- | :--- |
+| `x`  | `T`  |
+| `y`  | `T`  |
 
 #### Returns
 
 `number`
-
 
 [interfaces]: ../interfaces.md

@@ -8,9 +8,9 @@ Represents a grouping based on a key
 
 ## Type parameters
 
-| Name |
-| :------ |
-| `TKey` |
+| Name       |
+| :--------- |
+| `TKey`     |
 | `TElement` |
 
 ## Hierarchy
