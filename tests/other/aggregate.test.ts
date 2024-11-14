@@ -4,130 +4,260 @@ import * as assert from "node:assert/strict";
 
 describe("Aggregate", function () {
   const simpleArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const simpleSet = new Set(simpleArray);
   describe("Enumerable", function () {
-    test("simple plus number aggregate", function () {
-      const val = Enumerable.asEnumerable(simpleArray).aggregate((a, b) => a + b);
-      assert.strictEqual(val, 55);
-    });
-    test("repeated calls", function () {
-      const e = Enumerable.asEnumerable(simpleArray);
-      assert.deepStrictEqual(
-        e.aggregate((a, b) => a + b),
-        e.aggregate((a, b) => a + b),
-      );
-    });
-    test("simple multiply number aggregate", function () {
-      const val = Enumerable.asEnumerable(simpleArray).aggregate((a, b) => a * b);
-      assert.strictEqual(val, 3628800);
-    });
-    test("transform aggregate", function () {
-      const val = Enumerable.asEnumerable(simpleArray).aggregate(
-        1,
-        (a, b) => a * b,
-        (o) => o / 2,
-      );
-      assert.strictEqual(val, 1814400);
-    });
-    test("defaultValue 'string' aggregate", function () {
-      const val = Enumerable.asEnumerable([1, 2, 3]).aggregate(
-        "",
-        (a: unknown, b: unknown) => `${(a as number).toString()}${(b as number).toString()}`,
-      );
-      assert.strictEqual(val, "123");
-    });
-    test("single element", function () {
-      assert.strictEqual(
-        Enumerable.asEnumerable([5]).aggregate((x, y) => x + y),
-        5,
-      );
-    });
-    test("empty source and seed", function () {
-      assert.strictEqual(
-        Enumerable.asEnumerable([]).aggregate(2, (x, y) => x * y),
-        2,
-      );
-    });
-    test("single element and seed", function () {
-      assert.strictEqual(
-        Enumerable.asEnumerable([5]).aggregate(2, (x, y) => x * y),
-        10,
-      );
-    });
-    test("two elements and seed", function () {
-      assert.strictEqual(
-        Enumerable.asEnumerable([5, 6]).aggregate(2, (x, y) => x * y),
-        60,
-      );
-    });
-    test("no elements seed and result selector", function () {
-      assert.strictEqual(
-        Enumerable.asEnumerable([]).aggregate(
+    describe("Array", () => {
+      test("simple plus number aggregate", function () {
+        const val = Enumerable.asEnumerable(simpleArray).aggregate((a, b) => a + b);
+        assert.strictEqual(val, 55);
+      });
+      test("repeated calls", function () {
+        const e = Enumerable.asEnumerable(simpleArray);
+        assert.deepStrictEqual(
+          e.aggregate((a, b) => a + b),
+          e.aggregate((a, b) => a + b),
+        );
+      });
+      test("simple multiply number aggregate", function () {
+        const val = Enumerable.asEnumerable(simpleArray).aggregate((a, b) => a * b);
+        assert.strictEqual(val, 3628800);
+      });
+      test("transform aggregate", function () {
+        const val = Enumerable.asEnumerable(simpleArray).aggregate(
+          1,
+          (a, b) => a * b,
+          (o) => o / 2,
+        );
+        assert.strictEqual(val, 1814400);
+      });
+      test("defaultValue 'string' aggregate", function () {
+        const val = Enumerable.asEnumerable([1, 2, 3]).aggregate(
+          "",
+          (a: unknown, b: unknown) => `${(a as number).toString()}${(b as number).toString()}`,
+        );
+        assert.strictEqual(val, "123");
+      });
+      test("single element", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable([5]).aggregate((x, y) => x + y),
+          5,
+        );
+      });
+      test("empty source and seed", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable([]).aggregate(2, (x, y) => x * y),
           2,
-          (x, y) => x * y,
-          (x) => x + 5,
-        ),
-        7,
-      );
+        );
+      });
+      test("single element and seed", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable([5]).aggregate(2, (x, y) => x * y),
+          10,
+        );
+      });
+      test("two elements and seed", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable([5, 6]).aggregate(2, (x, y) => x * y),
+          60,
+        );
+      });
+      test("no elements seed and result selector", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable([]).aggregate(
+            2,
+            (x, y) => x * y,
+            (x) => x + 5,
+          ),
+          7,
+        );
+      });
+      test("single element seed and result selector", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable([5]).aggregate(
+            2,
+            (x, y) => x * y,
+            (x) => x + 5,
+          ),
+          15,
+        );
+      });
+      test("two elements seed and result selector", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable([5, 6]).aggregate(
+            2,
+            (x, y) => x * y,
+            (x) => x + 5,
+          ),
+          65,
+        );
+      });
+      test("Basic", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable(["f", "o", "o"]).aggregate((x, y) => x + y),
+          "foo",
+        );
+
+        const sentence = "the quick brown fox jumps over the lazy dog";
+        // Split the string into individual words.
+        const words = Enumerable.asEnumerable(sentence.split(" "));
+        // Prepend each word to the beginning of the
+        // new sentence to reverse the word order.
+        const reversed = words.aggregate((workingSentence, next) => next + " " + workingSentence);
+        assert.strictEqual(reversed, "dog lazy the over jumps fox brown quick the");
+      });
+      test("String", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable("thisisthemostboringpartofcoding").aggregate((x, y) => x + y),
+          "thisisthemostboringpartofcoding",
+        );
+      });
+      test("ResultSelector", function () {
+        const fruits = Enumerable.asEnumerable(["apple", "mango", "orange", "passionfruit", "grape"]);
+
+        // Determine whether any string in the array is longer than "banana".
+        const longestName = fruits.aggregate(
+          "banana",
+          (longest, next) => (next.length > longest.length ? next : longest),
+          // Return the final result as an upper case string.
+          (fruit) => fruit.toUpperCase(),
+        );
+
+        assert.strictEqual(longestName, "PASSIONFRUIT");
+      });
+
+      test("Exception", function () {
+        assert.throws(
+          () => Enumerable.asEnumerable<number>([]).aggregate((x, y) => x + y),
+          Exceptions.ThrowNoElementsException,
+        );
+      });
     });
-    test("single element seed and result selector", function () {
-      assert.strictEqual(
-        Enumerable.asEnumerable([5]).aggregate(
+    describe("Set", () => {
+      test("simple plus number aggregate", function () {
+        const val = Enumerable.asEnumerable(simpleSet).aggregate((a, b) => a + b);
+        assert.strictEqual(val, 55);
+      });
+      test("repeated calls", function () {
+        const e = Enumerable.asEnumerable(simpleSet);
+        assert.deepStrictEqual(
+          e.aggregate((a, b) => a + b),
+          e.aggregate((a, b) => a + b),
+        );
+      });
+      test("simple multiply number aggregate", function () {
+        const val = Enumerable.asEnumerable(simpleSet).aggregate((a, b) => a * b);
+        assert.strictEqual(val, 3628800);
+      });
+      test("transform aggregate", function () {
+        const val = Enumerable.asEnumerable(simpleSet).aggregate(
+          1,
+          (a, b) => a * b,
+          (o) => o / 2,
+        );
+        assert.strictEqual(val, 1814400);
+      });
+      test("defaultValue 'string' aggregate", function () {
+        const val = Enumerable.asEnumerable(new Set([1, 2, 3])).aggregate(
+          "",
+          (a: unknown, b: unknown) => `${(a as number).toString()}${(b as number).toString()}`,
+        );
+        assert.strictEqual(val, "123");
+      });
+      test("single element", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable(new Set([5])).aggregate((x, y) => x + y),
+          5,
+        );
+      });
+      test("empty source and seed", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable(new Set([])).aggregate(2, (x, y) => x * y),
           2,
-          (x, y) => x * y,
-          (x) => x + 5,
-        ),
-        15,
-      );
-    });
-    test("two elements seed and result selector", function () {
-      assert.strictEqual(
-        Enumerable.asEnumerable([5, 6]).aggregate(
-          2,
-          (x, y) => x * y,
-          (x) => x + 5,
-        ),
-        65,
-      );
-    });
-    test("Basic", function () {
-      assert.strictEqual(
-        Enumerable.asEnumerable(["f", "o", "o"]).aggregate((x, y) => x + y),
-        "foo",
-      );
+        );
+      });
+      test("single element and seed", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable(new Set([5])).aggregate(2, (x, y) => x * y),
+          10,
+        );
+      });
+      test("two elements and seed", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable(new Set([5, 6])).aggregate(2, (x, y) => x * y),
+          60,
+        );
+      });
+      test("no elements seed and result selector", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable(new Set([])).aggregate(
+            2,
+            (x, y) => x * y,
+            (x) => x + 5,
+          ),
+          7,
+        );
+      });
+      test("single element seed and result selector", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable(new Set([5])).aggregate(
+            2,
+            (x, y) => x * y,
+            (x) => x + 5,
+          ),
+          15,
+        );
+      });
+      test("two elements seed and result selector", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable(new Set([5, 6])).aggregate(
+            2,
+            (x, y) => x * y,
+            (x) => x + 5,
+          ),
+          65,
+        );
+      });
+      test("Basic", function () {
+        assert.strictEqual(
+          Enumerable.asEnumerable(new Set(["f", "o"])).aggregate((x, y) => x + y),
+          "fo",
+        );
 
-      const sentence = "the quick brown fox jumps over the lazy dog";
-      // Split the string into individual words.
-      const words = Enumerable.asEnumerable(sentence.split(" "));
-      // Prepend each word to the beginning of the
-      // new sentence to reverse the word order.
-      const reversed = words.aggregate((workingSentence, next) => next + " " + workingSentence);
-      assert.strictEqual(reversed, "dog lazy the over jumps fox brown quick the");
-    });
-    test("String", function () {
-      assert.strictEqual(
-        Enumerable.asEnumerable("thisisthemostboringpartofcoding").aggregate((x, y) => x + y),
-        "thisisthemostboringpartofcoding",
-      );
-    });
-    test("ResultSelector", function () {
-      const fruits = Enumerable.asEnumerable(["apple", "mango", "orange", "passionfruit", "grape"]);
+        const sentence = "the quick brown fox jumps over lazy dog";
+        // Split the string into individual words.
+        const words = Enumerable.asEnumerable(new Set(sentence.split(" ")));
+        // Prepend each word to the beginning of the
+        // new sentence to reverse the word order.
+        const reversed = words.aggregate((workingSentence, next) => next + " " + workingSentence);
+        assert.strictEqual(reversed, "dog lazy over jumps fox brown quick the");
+      });
+      test("String", function () {
+        const s = new Set("abcdefghijklmnopqrstuvwxyz");
+        assert.strictEqual(
+          Enumerable.asEnumerable(s).aggregate((x, y) => x + y),
+          "abcdefghijklmnopqrstuvwxyz",
+        );
+      });
+      test("ResultSelector", function () {
+        const fruits = Enumerable.asEnumerable(new Set(["apple", "mango", "orange", "passionfruit", "grape"]));
 
-      // Determine whether any string in the array is longer than "banana".
-      const longestName = fruits.aggregate(
-        "banana",
-        (longest, next) => (next.length > longest.length ? next : longest),
-        // Return the final result as an upper case string.
-        (fruit) => fruit.toUpperCase(),
-      );
+        // Determine whether any string in the array is longer than "banana".
+        const longestName = fruits.aggregate(
+          "banana",
+          (longest, next) => (next.length > longest.length ? next : longest),
+          // Return the final result as an upper case string.
+          (fruit) => fruit.toUpperCase(),
+        );
 
-      assert.strictEqual(longestName, "PASSIONFRUIT");
-    });
+        assert.strictEqual(longestName, "PASSIONFRUIT");
+      });
 
-    test("Exception", function () {
-      assert.throws(
-        () => Enumerable.asEnumerable<number>([]).aggregate((x, y) => x + y),
-        Exceptions.ThrowNoElementsException,
-      );
+      test("Exception", function () {
+        assert.throws(
+          () => Enumerable.asEnumerable<number>(new Set([])).aggregate((x, y) => x + y),
+          Exceptions.ThrowNoElementsException,
+        );
+      });
     });
   });
 

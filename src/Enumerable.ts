@@ -1,4 +1,3 @@
-//import { Type } from "@n3okill/utils";
 import { Deferred, Interfaces, Sync, Types } from "./internal";
 import { isIterable, isUndefined, isString, isNullOrUndefined, isFunction } from "./utils";
 
@@ -23,6 +22,7 @@ export class Enumerable<TSource> {
     }
     return new Enumerable<TSource2>(source);
   };
+  static create = Enumerable.asEnumerable;
 
   /**
    * Applies an accumulator function over a sequence.
