@@ -18,6 +18,7 @@ export class ReverseEnumerable<T> extends EnumerableAsync<T> {
     }
     let length = result.length;
     while (length--) {
+      // eslint-disable-next-line security/detect-object-injection
       yield result[length];
     }
   }

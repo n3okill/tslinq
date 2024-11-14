@@ -12,6 +12,7 @@ export class ReverseEnumerable<T> extends Enumerable<T> {
     const result = Array.from(this._source);
     let length = result.length;
     while (length--) {
+      // eslint-disable-next-line security/detect-object-injection
       yield result[length];
     }
   }

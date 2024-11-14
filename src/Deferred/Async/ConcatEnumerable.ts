@@ -10,7 +10,6 @@ export class ConcatEnumerable<T> extends EnumerableAsync<T> {
     return this._Concat();
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   private async *_Concat() {
     yield* this._source;
     yield* this._second;

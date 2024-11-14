@@ -66,7 +66,9 @@ class EnumerableSorter<T, TKey> {
 
   public CompareKeys(index1: number, index2: number): number {
     const c = this._comparer.CompareTo(
+      // eslint-disable-next-line security/detect-object-injection
       (this._keys as Array<SorterKey<T, TKey>>)[index1].key,
+      // eslint-disable-next-line security/detect-object-injection
       (this._keys as Array<SorterKey<T, TKey>>)[index2].key,
     );
     if (c === 0) {

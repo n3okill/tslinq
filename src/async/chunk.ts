@@ -1,6 +1,5 @@
 import { Interfaces, EnumerableAsync } from "../internal";
 
-// eslint-disable-next-line @typescript-eslint/require-await
 export const chunk = <T>(iterator: AsyncIterator<T>, size: number): Interfaces.IAsyncEnumerable<Array<T>> => {
   if (size < 0) {
     throw new RangeError("'index' is out of range");

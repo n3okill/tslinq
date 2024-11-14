@@ -4,10 +4,7 @@ import eslintPrettier from "eslint-config-prettier";
 import security from "eslint-plugin-security";
 
 export default [
-  {
-    files: ["./src/**/*.ts"],
-    exclude: ["./node_modules", "./dist", "./docs", "./coverage", "./test"],
-  },
+  { files: ["./src/**/*.ts"] },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   eslintPrettier,

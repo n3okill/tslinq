@@ -12,7 +12,6 @@ export class AppendPrependEnumerable<T> extends EnumerableAsync<T> {
     return this._AppendPrepend();
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   private async *_AppendPrepend() {
     if (this._isAppend) {
       yield* this._source as Interfaces.IAsyncEnumerable<T>;
