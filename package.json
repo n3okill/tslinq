@@ -19,8 +19,9 @@
     "clean:dist": "rimraf ./dist",
     "build": "npm run clean:dist && npx tsc -p tsconfig.json",
     "pretest": " npm run build",
+    "unit": "mocha",
     "test": "npm run lint && npm run unit",
-    "unit": "globstar -- node --import tsx --test \"tests/**/*.test.ts\"",
+    "test:node": "globstar -- node --import tsx --test \"tests/**/*.test.ts\"",
     "test:node:watch": "globstar -- node --import tsx --test --watch \"tests/**/*.test.ts\"",
     "lint": "eslint",
     "format": "prettier --config .prettierrc \"src/**/*.ts\" \"tests/**/*.ts\" \"docs/**/*.md\" \"README.md\" --write",
@@ -29,7 +30,7 @@
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-    "benchmark": "cd benchmarks && node --import tsx ./benchmark.ts"
+    "benchmark": "npm run build && cd benchmarks && node ./benchmark.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
@@ -40,7 +41,6 @@
     "eslint-plugin-security": "^3.0.1",
     "globstar": "^1.0.0",
     "prettier": "^3.3.3",
-    "rimraf": "^6.0.1",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.11.0"

@@ -1,14 +1,14 @@
 import * as util from "node:util";
 
-export function isUndefined(arg: unknown): arg is undefined {
+export function isUndefined(arg: unknown) {
   return typeof arg === "undefined";
 }
 
-export function isNull(arg: unknown): arg is null {
+export function isNull(arg: unknown) {
   return arg === null;
 }
 
-export function isNullOrUndefined(arg: unknown): arg is null | undefined {
+export function isNullOrUndefined(arg: unknown) {
   return isNull(arg) || isUndefined(arg);
 }
 
@@ -22,43 +22,43 @@ export function kindOf(arg: unknown) {
 export function isKind(arg: unknown, kind: string) {
   return kindOf(arg).toLowerCase() === kind.toLowerCase();
 }
-export function isNumber(arg: unknown): arg is number {
+export function isNumber(arg: unknown) {
   return isKind(arg, "number");
 }
 
-export function isFunction(arg: unknown): arg is CallableFunction {
+export function isFunction(arg: unknown) {
   return isKind(arg, "function");
 }
 
-export function isAsyncIterable(arg: unknown): arg is AsyncIterable<unknown> {
+export function isAsyncIterable(arg: unknown) {
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     !isNullOrUndefined(arg) && isFunction((arg as any)[Symbol.asyncIterator])
   );
 }
 
-export function isString(arg: unknown): arg is string {
+export function isString(arg: unknown) {
   return isKind(arg, "string");
 }
 
-export function isBoolean(arg: unknown): arg is boolean {
+export function isBoolean(arg: unknown) {
   return isKind(arg, "boolean");
 }
 
-export function isSymbol(arg: unknown): arg is symbol {
+export function isSymbol(arg: unknown) {
   return isKind(arg, "symbol");
 }
 
-export function isObject(arg: unknown): arg is object {
+export function isObject(arg: unknown) {
   return !isNullOrUndefined(arg) && isKind(arg, "object");
 }
 
-export function isIterable(arg: unknown): arg is Iterable<unknown> {
+export function isIterable(arg: unknown) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return !isNullOrUndefined(arg) && isFunction((arg as any)[Symbol.iterator]);
 }
 
-export function isAsyncFunction(arg: unknown): arg is AsyncGeneratorFunction {
+export function isAsyncFunction(arg: unknown) {
   const AsyncFunction = (async () => {
     //empty
   }).constructor;
@@ -79,6 +79,6 @@ export function isAsyncFunction(arg: unknown): arg is AsyncGeneratorFunction {
   return promise && isFunction(promise.then) && promise[Symbol.toStringTag] === "Promise";
 }
 
-export function isFunctionType(arg: unknown): arg is CallableFunction | AsyncGeneratorFunction {
+export function isFunctionType(arg: unknown) {
   return isFunction(arg) || isAsyncFunction(arg);
 }
