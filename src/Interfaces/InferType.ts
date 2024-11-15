@@ -10,7 +10,7 @@ export type OfType = "object" | "function" | "symbol" | "boolean" | "number" | "
  * @see {OfType}
  */
 export type InferType<T> = T extends "object"
-  ? object
+  ? Record<string, unknown>
   : T extends "function"
     ? // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
       Function
