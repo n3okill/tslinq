@@ -12,19 +12,19 @@
 
 ## Hierarchy
 
--   [`IAsyncEqualityComparer`][]<`T`\>
+- [`IAsyncEqualityComparer`][]<`T`\>
 
-    ↳ **`DefaultAsyncEqualityComparer`**
+  ↳ **`DefaultAsyncEqualityComparer`**
 
 ## Table of contents
 
 ### Constructors
 
--   [constructor](#constructor)
+- [constructor](#constructor)
 
 ### Methods
 
--   [Equals](#equals)
+- [Equals](#equals)
 
 ## Constructors
 

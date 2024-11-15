@@ -4,26 +4,26 @@
 
 ## Table of contents
 
--   [Table of contents](#table-of-contents)
-    -   [AggregateFunctionType](#aggregatefunctiontype)
-    -   [AggregateFunctionTypeAsync](#aggregatefunctiontypeasync)
-    -   [AggregateResultType](#aggregateresulttype)
-    -   [AggregateResultTypeAsync](#aggregateresulttypeasync)
-    -   [SelectManyResultSelector](#selectmanyresultselector)
-    -   [SelectManyResultSelectorAsync](#selectmanyresultselectorasync)
-    -   [SelectManySelector](#selectmanyselector)
-    -   [SelectManySelectorAsync](#selectmanyselectorasync)
-    -   [TElementSelector](#telementselector)
-    -   [TElementSelectorAsync](#telementselectorasync)
-    -   [TIAsyncEqualityComparer](#tiasyncequalitycomparer)
-    -   [TICompareTo](#ticompareto)
-    -   [TKeySelector](#tkeyselector)
-    -   [TKeySelectorAsync](#tkeyselectorasync)
-    -   [TResultSelector](#tresultselector)
-    -   [TResultSelectorAsync](#tresultselectorasync)
-    -   [TResultSelectorJoin](#tresultselectorjoin)
-    -   [TResultSelectorJoinAsync](#tresultselectorjoinasync)
-    -   [ZipResultSelectorAsync](#zipresultselectorasync)
+- [Table of contents](#table-of-contents)
+  - [AggregateFunctionType](#aggregatefunctiontype)
+  - [AggregateFunctionTypeAsync](#aggregatefunctiontypeasync)
+  - [AggregateResultType](#aggregateresulttype)
+  - [AggregateResultTypeAsync](#aggregateresulttypeasync)
+  - [SelectManyResultSelector](#selectmanyresultselector)
+  - [SelectManyResultSelectorAsync](#selectmanyresultselectorasync)
+  - [SelectManySelector](#selectmanyselector)
+  - [SelectManySelectorAsync](#selectmanyselectorasync)
+  - [TElementSelector](#telementselector)
+  - [TElementSelectorAsync](#telementselectorasync)
+  - [TIAsyncEqualityComparer](#tiasyncequalitycomparer)
+  - [TICompareTo](#ticompareto)
+  - [TKeySelector](#tkeyselector)
+  - [TKeySelectorAsync](#tkeyselectorasync)
+  - [TResultSelector](#tresultselector)
+  - [TResultSelectorAsync](#tresultselectorasync)
+  - [TResultSelectorJoin](#tresultselectorjoin)
+  - [TResultSelectorJoinAsync](#tresultselectorjoinasync)
+  - [ZipResultSelectorAsync](#zipresultselectorasync)
 
 #### AggregateFunctionType
 
@@ -428,10 +428,10 @@
 
 ###### Parameters
 
-| Name | Type                                                                                                                                                     |
-| :--- | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `x`  | `TKey`                                                                                                                                                   |
-| `y`  | [`IAsyncEnumerable`](../interfaces/Interfaces.IAsyncEnumerable.md)<`TElement`\> \| [`IEnumerable`](../interfaces/Interfaces.IEnumerable.md)<`TElement`\> |
+| Name | Type |
+| :-- | :-- |
+| `x` | `TKey` |
+| `y` | [`IAsyncEnumerable`](../interfaces/Interfaces.IAsyncEnumerable.md)<`TElement`\> \| [`IEnumerable`](../interfaces/Interfaces.IEnumerable.md)<`TElement`\> |
 
 ###### Returns
 

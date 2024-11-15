@@ -6,8 +6,8 @@
 
 ## Type parameters
 
-| Name |
-| :------ |
+| Name      |
+| :-------- |
 | `TSource` |
 
 ## Hierarchy

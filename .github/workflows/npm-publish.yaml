@@ -1,20 +1,32 @@
-name: Npm Publish
+name: Npm Publish Utils
+
 on:
-    push:
-        branches: ["master", "main"]
-    pull_request:
-        branches: ["master", "main"]
+  push:
+    branches:
+      - master
+    tags:
+      - v*
+
+permissions: read-all
 
 jobs:
-    publish:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v1
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: 16
-            - run: npm install
-            - run: npm test
-            - uses: JS-DevTools/npm-publish@v1
-              with:
-                  token: ${{ secrets.NPM_TOKEN }}
+  publish:
+    name: publish
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-node@main
+        with:
+          node-version: 20
+          registry-url: "https://registry.npmjs.org"
+      - run: npm install --force
+      - run: npm test
+      - uses: JS-DevTools/npm-publish@19c28f1ef146469e409470805ea4279d47c3d35c
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          access: public
+          provenance: true

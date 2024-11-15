@@ -8,8 +8,8 @@ Ordered Iterable type with methods from LINQ.
 
 ## Type parameters
 
-| Name |
-| :------ |
+| Name      |
+| :-------- |
 | `TSource` |
 
 ## Hierarchy
@@ -17,6 +17,5 @@ Ordered Iterable type with methods from LINQ.
 - [`IEnumerable`](ienumerable.md)<`TSource`\>
 
   ↳ **`IOrderedEnumerable`**
-
 
 [interfaces]: ../interfaces.md
