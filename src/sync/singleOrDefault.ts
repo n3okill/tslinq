@@ -1,25 +1,35 @@
-import { Helpers } from "../internal";
+import { MoreThanOneElementSatisfiesCondition } from "../exceptions/MoreThanOneElementSatisfiesCondition.ts";
+import type { IAsyncEnumerable } from "../types/async-enumerable.interface.ts";
+import type { IEnumerable } from "../types/enumerable.interface.ts";
+import { single, singleAsync } from "./single.ts";
+import type { TParamPromise } from "../types/other.ts";
 
-export const singleOrDefault = <T>(
-  iterator: Iterator<T>,
-  predicate: (x: T) => boolean = () => true,
-  defaultValue?: T,
-): T => {
-  const result = [];
-  let value: T | undefined;
-  let current = iterator.next();
-  while (current.done !== true) {
-    value = current.value;
-    if (predicate(current.value)) {
-      result.push(current.value);
+export function singleOrDefault<T>(
+  enumerable: IEnumerable<T>,
+  defaultValue: T,
+  predicate?: (x: T) => boolean,
+): T {
+  try {
+    return single(enumerable, predicate);
+  } catch (e) {
+    if (!(e instanceof MoreThanOneElementSatisfiesCondition)) {
+      return defaultValue;
     }
-    current = iterator.next();
+    throw e;
   }
-  if (result.length > 1) {
-    throw new Error("More than one element satisfies the condition");
-  } else if (result.length === 1) {
-    return result[0];
-  } else {
-    return defaultValue !== undefined ? defaultValue : Helpers.getDefaultValue(value);
+}
+
+export async function singleOrDefaultAsync<T>(
+  enumerable: IAsyncEnumerable<T>,
+  defaultValue: T,
+  predicate?: (x: T) => TParamPromise<boolean>,
+): Promise<T> {
+  try {
+    return await singleAsync(enumerable, predicate);
+  } catch (e) {
+    if (!(e instanceof MoreThanOneElementSatisfiesCondition)) {
+      return defaultValue;
+    }
+    throw e;
   }
-};
+}
