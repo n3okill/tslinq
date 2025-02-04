@@ -6,6 +6,19 @@
     "access": "public"
   },
   "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    "require": {
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/cjs/index.js"
+    },
+    "import": {
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/esm/index.js"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/n3okill/tslinq.git"
@@ -15,30 +28,38 @@
   },
   "homepage": "https://github.com/n3okill/tslinq#readme",
   "scripts": {
-    "build": "npx tsc -p tsconfig.json",
+    "build:cjs": "npx tsc -p tsconfig.cjs.json && echo {\"type\": \"commonjs\"} > dist/cjs/package.json",
+    "build:esm": "npx tsc -p tsconfig.esm.json && echo {\"type\": \"module\"} > dist/esm/package.json",
+    "build:types": "npx tsc -p tsconfig.types.json",
+    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:types",
+    "clean": "npx rimraf dist",
     "lint": "eslint",
-    "test": "globstar -- node --import tsx --test \"tests/**/*.test.ts\"",
-    "test:coverage": "globstar -- node --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=lcov.info --import tsx --test \"tests/**/*.test.ts\"",
-    "test:watch": "globstar -- node --import tsx --test --watch \"tests/**/*.test.ts\"",
-    "format": "prettier --config .prettierrc \"src/**/*.ts\" \"tests/**/*.ts\" --write",
+    "test": "globcli -- tsx --test \"tests/**/*.test.ts\"",
+    "test:coverage": "globcli -- tsx --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=lcov.info --test \"tests/**/*.test.ts\"",
+    "test:watch": "globcli -- tsx --test --watch \"tests/**/*.test.ts\"",
+    "format": "prettier --config .prettierrc \"src/**/*.ts\" \"tests/**/*.ts\" \"docs/**/*.md\" --write",
     "prepare": "npm run build",
-    "preversion": "npm run lint && npm test",
-    "version": "npm run format && git add -A .",
-    "postversion": "git push && git push --tags",
-    "benchmark": "npm run build && cd benchmarks && node ./benchmark.js"
+    "preversion": "npm run format && npm run lint && npm test",
+    "version": "git add -A .",
+    "postversion": "git push && git push --tags"
   },
   "devDependencies": {
-    "@eslint/js": "^9.13.0",
-    "@types/node": "^22.8.1",
-    "benny": "^3.7.1",
-    "eslint": "^9.13.0",
-    "eslint-config-prettier": "^9.1.0",
+    "@dymexjs/globcli": "^0.0.4",
+    "@eslint/js": "^9.19.0",
+    "@types/eslint-config-prettier": "^6.11.3",
+    "@types/eslint-plugin-security": "^3.0.0",
+    "@types/node": "^22.13.0",
+    "eslint": "^9.19.0",
+    "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-security": "^3.0.1",
-    "globstar": "^1.0.0",
-    "prettier": "^3.3.3",
+    "eslint-plugin-tsdoc": "^0.4.0",
+    "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
     "tsx": "^4.19.2",
-    "typescript": "^5.6.3",
-    "typescript-eslint": "^8.11.0"
+    "typedoc": "^0.27.6",
+    "typedoc-plugin-markdown": "^4.4.1",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.22.0"
   },
   "keywords": [
     "linq"

@@ -21,9 +21,9 @@ npm install --save @n3okill/tslinq
 ```
 
 ```js
-import { Enumerable, EnumerableAsync } from "@n3okill/tslinq";
+import { Enumerable, AsyncEnumerable } from "@n3okill/tslinq";
 
-const sum = Enumerable.asEnumerable([43, 1, 583, 6]).sum();
+const sum = Enumerable.create([43, 1, 583, 6]).sum();
 console.log(`Sum: ${sum} === 633`);
 ```
 
@@ -31,15 +31,16 @@ or
 
 ```js
 const tslinq = require("@n3okill/tslinq");
-const sum = await tslinq.EnumerableAsync.asEnumerable([43, 1, 583, 6]).sum();
+const sum = await tslinq.AsyncEnumerable.create([43, 1, 583, 6]).sum();
 console.log(`Sum: ${sum} === 633`);
 ```
+
+For more information check [API Documentation](docs/api.md)
 
 ## Runing tests
 
 - `npm run lint`: runs the linter
-- `npm run unit`: run unit tests
-- `npm test`: run both lint and unit tests
+- `npm run test`: run unit tests
 
 ## Contribute
 
@@ -62,15 +63,7 @@ If you wan't to add something new, following this steps would be much apreciated
 
 ## Documentation
 
-### Namespaces
-
-- [Interfaces](docs/interfaces.md)
-- [Types](docs/types.md)
-
-### Classes
-
-- [Enumerable](docs/classes/enumerable.md)
-- [EnumerableAsync](docs/classes/enumerableasync.md)
+[API Documentation](docs/api.md)
 
 ## Examples
 
@@ -78,11 +71,11 @@ For more examples just check the tests folder
 
 ## Why this module
 
-To bring the best features of linq and it's easy usability to typescript with a fast implementation
+To bring the best features of linq and it's easy usability to javascript ecosystem with a fast implementation
 
 ## Credits
 
-- [Microsoft](http://www.microsoft.com) - For developing linq and typescript
+- [Microsoft](http://www.microsoft.com) - For developing linq
 
 ## License
 

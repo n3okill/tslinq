@@ -1,23 +1,30 @@
-import { Helpers } from "../internal";
+import type { IEnumerable } from "../types/enumerable.interface.ts";
+import { last, lastAsync } from "./last.ts";
+import type { TParamPromise } from "../types/other.ts";
+import type { IAsyncEnumerable } from "../types/async-enumerable.interface.ts";
 
-export const lastOrDefault = <T>(
-  iterator: Iterator<T>,
-  predicate: (x: T) => boolean = () => true,
-  defaultValue?: T,
-): T => {
-  let result: T | undefined;
-  let value: T | undefined;
-  let current = iterator.next();
-  while (current.done !== true) {
-    value = current.value;
-    if (predicate(value)) {
-      result = value;
-    }
-    current = iterator.next();
+export function lastOrDefault<T>(
+  enumerable: IEnumerable<T>,
+  defaultValue: T,
+  predicate?: (x: T) => boolean,
+): T {
+  try {
+    return last(enumerable, predicate);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (e) {
+    return defaultValue;
   }
+}
 
-  if (result) {
-    return result;
+export async function lastOrDefaultAsync<T>(
+  enumerable: IAsyncEnumerable<T>,
+  defaultValue: T,
+  predicate?: (x: T) => TParamPromise<boolean>,
+): Promise<T> {
+  try {
+    return await lastAsync(enumerable, predicate);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (e) {
+    return defaultValue;
   }
-  return defaultValue !== undefined ? defaultValue : Helpers.getDefaultValue(value);
-};
+}

@@ -105,3 +105,6 @@ dist
 
 .vscode
 benchmarks
+benchmark/
+old/
+scripts/

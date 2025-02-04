@@ -1,10 +1,15 @@
-import { Enumerable, EnumerableAsync, Interfaces } from "../../src/internal";
 import { describe, test } from "node:test";
 import * as assert from "node:assert/strict";
+import { AsyncEnumerable, Enumerable } from "../../src/index.ts";
 
 describe("empty", function () {
   const names1: Array<string> = ["Hartono, Tommy"];
-  const names2: Array<string> = ["Adams, Terry", "Andersen, Henriette Thaulow", "Hedlund, Magnus", "Ito, Shu"];
+  const names2: Array<string> = [
+    "Adams, Terry",
+    "Andersen, Henriette Thaulow",
+    "Hedlund, Magnus",
+    "Ito, Shu",
+  ];
   const names3: Array<string> = [
     "Solanki, Ajay",
     "Hoeing, Helge",
@@ -14,11 +19,10 @@ describe("empty", function () {
   ];
   describe("Enumerable", function () {
     test("basic", function () {
-      const nameList = Enumerable.asEnumerable([names1, names2, names3]);
-      const allNames = nameList.aggregate<Interfaces.IEnumerable<string>, Enumerable<string>>(
+      const nameList = Enumerable.create([names1, names2, names3]);
+      const allNames = nameList.aggregate(
+        (current, next) => (next.length > 3 ? current.union(next) : current),
         Enumerable.empty(String),
-        (current, next) =>
-          next.length > 3 ? (current as unknown as Enumerable<string>).union(next) : (current as Enumerable<string>),
       );
       const result = [
         "Adams, Terry",
@@ -33,15 +37,12 @@ describe("empty", function () {
       assert.deepStrictEqual(allNames.toArray(), result);
     });
   });
-  describe("EnumerableAsync", function () {
+  describe("AsyncEnumerable", function () {
     test("basic", async function () {
-      const nameList = EnumerableAsync.asEnumerableAsync([names1, names2, names3]);
-      const allNames = await nameList.aggregate<Interfaces.IAsyncEnumerable<string>, EnumerableAsync<string>>(
-        EnumerableAsync.empty(String),
-        (current, next) =>
-          next.length > 3
-            ? (current as unknown as EnumerableAsync<string>).union(next)
-            : (current as EnumerableAsync<string>),
+      const nameList = AsyncEnumerable.create([names1, names2, names3]);
+      const allNames = await nameList.aggregate(
+        (current, next) => (next.length > 3 ? current.union(next) : current),
+        AsyncEnumerable.empty(String),
       );
       const result = [
         "Adams, Terry",
