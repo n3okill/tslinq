@@ -1,5 +1,4 @@
-import { AsyncEnumerable } from "../async-enumerable.ts";
-import { Enumerable } from "../enumerable.ts";
+import { AsyncEnumerable, Enumerable } from "../internal.ts";
 import type { IAsyncEnumerable } from "../types/async-enumerable.interface.ts";
 import type { IEnumerable } from "../types/enumerable.interface.ts";
 

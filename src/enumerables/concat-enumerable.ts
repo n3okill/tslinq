@@ -1,7 +1,6 @@
-import { AsyncEnumerable } from "../async-enumerable.ts";
-import { Enumerable } from "../enumerable.ts";
 import { validateIterableOrThrow } from "../helpers/helpers.ts";
 import { isIterable } from "../helpers/utils.ts";
+import { AsyncEnumerable, Enumerable } from "../internal.ts";
 import { type IAsyncEnumerable } from "../types/async-enumerable.interface.ts";
 import { type IEnumerable } from "../types/enumerable.interface.ts";
 

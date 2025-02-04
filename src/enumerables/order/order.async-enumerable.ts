@@ -1,10 +1,9 @@
-import { AsyncEnumerable } from "../../async-enumerable.ts";
 import { Comparer } from "../../comparer/comparer.ts";
 import type { IAsyncEnumerable } from "../../types/async-enumerable.interface.ts";
 import type { IOrderedAsyncEnumerable } from "../../types/order.ts";
 import type { TKeySelectorAsync } from "../../types/selectors.ts";
-import { Enumerable } from "../../enumerable.ts";
 import { validateArgumentOrThrow } from "../../helpers/helpers.ts";
+import { AsyncEnumerable, Enumerable } from "../../internal.ts";
 
 abstract class OrderedAsyncEnumerable<TElement>
   extends AsyncEnumerable<TElement>

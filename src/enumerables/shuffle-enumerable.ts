@@ -1,6 +1,5 @@
-import { AsyncEnumerable } from "../async-enumerable.ts";
-import { Enumerable } from "../enumerable.ts";
 import { isUndefined } from "../helpers/utils.ts";
+import { AsyncEnumerable, Enumerable } from "../internal.ts";
 import type { IEnumerable } from "../types/enumerable.interface.ts";
 
 class ShuffleEnumerable<T> extends Enumerable<T> {
