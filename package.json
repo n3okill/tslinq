@@ -1,6 +1,6 @@
 {
   "name": "@n3okill/tslinq",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Use Linq Enumerable in typescript",
   "publishConfig": {
     "access": "public"
