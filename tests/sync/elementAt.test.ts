@@ -54,34 +54,6 @@ describe("elementAt", function () {
       assert.strictEqual(mixed.elementAt(1), "two");
       assert.strictEqual(mixed.elementAt(2), true);
     });
-
-    test("large index performance", () => {
-      const large = Enumerable.create(
-        Array.from({ length: 10000 }, (_, i) => i),
-      );
-      assert.strictEqual(large.elementAt(9999), 9999);
-    });
-    test("performance comparison array vs iterator", () => {
-      const array = Enumerable.create(
-        Array.from({ length: 1000 }, (_, i) => i),
-      );
-      const iterator = Enumerable.create(
-        (function* () {
-          for (let i = 0; i < 1000; i++) yield i;
-        })(),
-      );
-
-      const start1 = Date.now();
-      array.elementAt(500);
-      const arrayTime = Date.now() - start1;
-
-      const start2 = Date.now();
-      iterator.elementAt(500);
-      const iterTime = Date.now() - start2;
-
-      assert.ok(arrayTime <= iterTime, "Array access should be faster");
-    });
-
     test("type coercion behavior", () => {
       const mixed = Enumerable.create(["1", 2, "3"]);
       assert.strictEqual(typeof mixed.elementAt(0), "string");

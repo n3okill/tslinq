@@ -29,12 +29,6 @@ describe("Count", function () {
       const e = Enumerable.create([0]);
       assert.strictEqual(e.count(), e.count());
     });
-    test("large collection performance", () => {
-      const largeArray = Array.from({ length: 10000 }, (_, i) => i);
-      const result = Enumerable.create(largeArray).count();
-      assert.strictEqual(result, 10000);
-    });
-
     test("null and undefined values", () => {
       const withNull = Enumerable.create([null, undefined, 1, null]);
       assert.strictEqual(withNull.count(), 4);

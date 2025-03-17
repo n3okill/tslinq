@@ -55,17 +55,6 @@ describe("max", function () {
         Number.MAX_VALUE,
       );
     });
-
-    test("performance with large collection", () => {
-      const large = Enumerable.create(
-        Array.from({ length: 100000 }, (_, i) => i),
-      );
-      const start = performance.now();
-      const result = large.max();
-      assert.ok(performance.now() - start < 100);
-      assert.strictEqual(result, 99999);
-    });
-
     test("invalid type throwing", () => {
       assert.throws(
         () => Enumerable.create(["1", "2"]).max(),

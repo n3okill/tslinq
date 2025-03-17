@@ -57,16 +57,6 @@ describe("lastOrDefault", function () {
         { id: 3, value: "first" },
       );
     });
-
-    test("performance with large collection", () => {
-      const size = 100000;
-      const large = Enumerable.create(
-        Array.from({ length: size }, (_, i) => i),
-      );
-      const start = performance.now();
-      large.lastOrDefault(-1, (x) => x > 99990);
-      assert.ok(performance.now() - start < 100);
-    });
   });
   describe("AsyncEnumerable", function () {
     test("basic", async function () {

@@ -9,7 +9,7 @@ import * as assert from "node:assert/strict";
 import {
   AnagramEqualityComparer,
   CaseInsensitiveEqualityComparer,
-  Person,
+  type Person,
   Product,
   ProductEqualityComparer,
   ProductEqualityComparerAsync,

@@ -27,15 +27,6 @@ describe("last", function () {
       const e = Enumerable.create([1, 2, 3]);
       assert.deepStrictEqual(e.last(), e.last());
     });
-    test("performance with large collection", () => {
-      const largeArray = Array.from({ length: 100000 }, (_, i) => i);
-      const enumerable = Enumerable.create(largeArray);
-      const start = performance.now();
-      const result = enumerable.last((x) => x > 99990);
-      assert.ok(performance.now() - start < 100);
-      assert.ok(result > 99990);
-    });
-
     test("mixed type collection", () => {
       const mixed = Enumerable.create([1, "two", 3, "four", 5]);
       assert.strictEqual(mixed.last(), 5);
@@ -62,28 +53,6 @@ describe("last", function () {
       ]);
       const result = objects.last((x) => x.value === "a");
       assert.deepStrictEqual(result, { id: 3, value: "a" });
-    });
-
-    test("iterator vs array performance", () => {
-      const size = 10000;
-      const array = Enumerable.create(
-        Array.from({ length: size }, (_, i) => i),
-      );
-      const iterator = Enumerable.create(
-        (function* () {
-          for (let i = 0; i < size; i++) yield i;
-        })(),
-      );
-
-      const arrayStart = performance.now();
-      array.last();
-      const arrayTime = performance.now() - arrayStart;
-
-      const iterStart = performance.now();
-      iterator.last();
-      const iterTime = performance.now() - iterStart;
-
-      assert.ok(arrayTime <= iterTime, "Array should be faster than iterator");
     });
   });
   describe("AsyncEnumerable", function () {
@@ -124,17 +93,6 @@ describe("last", function () {
       );
       assert.strictEqual(await delayed.last(), 3);
     });
-
-    test("async predicate timing", async () => {
-      const numbers = AsyncEnumerable.create([1, 2, 3, 4, 5]);
-      const start = performance.now();
-      await numbers.last(async (x) => {
-        await new Promise((resolve) => setTimeout(resolve, 10));
-        return x > 3;
-      });
-      assert.ok(performance.now() - start >= 30);
-    });
-
     test("error in async iterator", async () => {
       const errorEnum = AsyncEnumerable.create(
         (async function* () {

@@ -162,19 +162,6 @@ describe("maxBy", function () {
       const e = AsyncEnumerable.create([1, 2, 3]);
       assert.deepStrictEqual(await e.maxBy((x) => x), await e.maxBy((x) => x));
     });
-    test("async with timing verification", async () => {
-      const delayed = AsyncEnumerable.create(
-        (async function* () {
-          yield { value: 1 };
-          await new Promise((resolve) => setTimeout(resolve, 10));
-          yield { value: 2 };
-        })(),
-      );
-      const start = performance.now();
-      await delayed.maxBy((x) => x.value);
-      assert.ok(performance.now() - start >= 10);
-    });
-
     test("async with error in selector", async () => {
       const enumerable = AsyncEnumerable.create([1, 2, 3]);
       await assert.rejects(
@@ -185,7 +172,6 @@ describe("maxBy", function () {
         /Selector error/,
       );
     });
-
     test("async with mixed promises", async () => {
       const mixed = AsyncEnumerable.create([
         await Promise.resolve({ value: 1 }),

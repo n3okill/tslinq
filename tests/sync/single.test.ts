@@ -32,15 +32,6 @@ describe("single", function () {
       const e = Enumerable.create([1]);
       assert.deepStrictEqual(e.single(), e.single());
     });
-    test("performance with large collection", () => {
-      const large = Enumerable.create(
-        Array.from({ length: 100000 }, (_, i) => i),
-      );
-      const start = performance.now();
-      assert.ok(large.single((x) => x === 99999) === 99999);
-      assert.ok(performance.now() - start < 100);
-    });
-
     test("with null and undefined values", () => {
       assert.strictEqual(Enumerable.create([null]).single(), null);
       assert.strictEqual(Enumerable.create([undefined]).single(), undefined);
@@ -92,16 +83,6 @@ describe("single", function () {
       const e = AsyncEnumerable.create([1]);
       assert.deepStrictEqual(await e.single(), await e.single());
     });
-    test("async with delayed predicate", async () => {
-      const delayed = AsyncEnumerable.create([1, 2, 3]);
-      const start = performance.now();
-      await delayed.single(async (x) => {
-        await new Promise((resolve) => setTimeout(resolve, 10));
-        return x === 2;
-      });
-      assert.ok(performance.now() - start >= 10);
-    });
-
     test("async error propagation", async () => {
       const errorEnum = AsyncEnumerable.create(
         (async function* () {

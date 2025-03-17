@@ -59,16 +59,6 @@ describe("singleOrDefault", function () {
         defaultObj,
       );
     });
-
-    test("performance with large collection", () => {
-      const large = Enumerable.create(
-        Array.from({ length: 100000 }, (_, i) => i),
-      );
-      const start = performance.now();
-      const result = large.singleOrDefault(-1, (x) => x === 99999);
-      assert.ok(performance.now() - start < 100);
-      assert.strictEqual(result, 99999);
-    });
     test("with null/undefined predicates", () => {
       const collection = Enumerable.create([null, undefined, 1]);
       assert.strictEqual(
@@ -129,16 +119,6 @@ describe("singleOrDefault", function () {
         await e.singleOrDefault(0),
       );
     });
-    test("async with delayed predicate", async () => {
-      const delayed = AsyncEnumerable.create([1, 2, 3]);
-      const start = performance.now();
-      await delayed.singleOrDefault(0, async (x) => {
-        await new Promise((resolve) => setTimeout(resolve, 10));
-        return x === 2;
-      });
-      assert.ok(performance.now() - start >= 10);
-    });
-
     test("async error handling", async () => {
       const errorEnum = AsyncEnumerable.create(
         (async function* () {

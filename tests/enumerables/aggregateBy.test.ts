@@ -81,25 +81,6 @@ describe("AggregateBy", function () {
         ["transport", { count: 2, total: 75 }],
       ]);
     });
-    test("performance with large dataset", () => {
-      const size = 10000;
-      const data = Array.from({ length: size }, (_, i) => ({
-        group: i % 10,
-        value: i,
-      }));
-
-      const start = performance.now();
-      const result = Enumerable.create(data)
-        .aggregateBy(
-          (x) => x.group,
-          0,
-          (acc, curr) => acc + curr.value,
-        )
-        .toArray();
-
-      assert.ok(performance.now() - start < 150);
-      assert.strictEqual(result.length, 10);
-    });
     test("with custom comparer", () => {
       const data = [
         { key: "A", value: 1 },

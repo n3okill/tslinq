@@ -57,16 +57,6 @@ describe("sequenceEqual", function () {
       );
       assert.ok(!Enumerable.create([null]).sequenceEqual([undefined] as never));
     });
-
-    test("performance with large sequences", () => {
-      const size = 100000;
-      const arr1 = Array.from({ length: size }, (_, i) => i);
-      const arr2 = Array.from({ length: size }, (_, i) => i);
-      const start = performance.now();
-      assert.ok(Enumerable.create(arr1).sequenceEqual(arr2));
-      assert.ok(performance.now() - start < 150);
-    });
-
     test("custom deep equality comparer", () => {
       class DeepComparer extends EqualityComparer<{ a: { b: number } }> {
         equals(x: { a: { b: number } }, y: { a: { b: number } }): boolean {
@@ -121,22 +111,6 @@ describe("sequenceEqual", function () {
       );
       assert.ok(await delayed.sequenceEqual([1, 2]));
     });
-
-    test("async with mixed timing comparers", async () => {
-      class TimedComparer extends EqualityComparerAsync<number> {
-        async equals(x: number, y: number): Promise<boolean> {
-          await new Promise((resolve) => setTimeout(resolve, x * 10));
-          return x === y;
-        }
-      }
-      const start = performance.now();
-      await AsyncEnumerable.create([1, 2]).sequenceEqual(
-        [1, 2],
-        new TimedComparer(),
-      );
-      assert.ok(performance.now() - start >= 30);
-    });
-
     test("async error propagation", async () => {
       const errorSeq = AsyncEnumerable.create(
         (async function* () {

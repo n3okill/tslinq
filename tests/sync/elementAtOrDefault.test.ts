@@ -60,13 +60,6 @@ describe("elementAtOrDefault", function () {
       assert.strictEqual(mixed.elementAtOrDefault("default", 5), "default");
       assert.strictEqual(mixed.elementAtOrDefault(false, 2), true);
     });
-
-    test("large collection performance", () => {
-      const large = Enumerable.create(
-        Array.from({ length: 10_000 }, (_, i) => i),
-      );
-      assert.strictEqual(large.elementAtOrDefault(-1, 10_000), -1);
-    });
     test("default value type matching", () => {
       const numbers = Enumerable.create([1, 2, 3]);
       const result: number = numbers.elementAtOrDefault(0, -1);

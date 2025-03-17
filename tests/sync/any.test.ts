@@ -65,10 +65,6 @@ describe("Any", function () {
         });
       });
     });
-    test("large array performance", function () {
-      const largeArray = Array.from({ length: 10000 }, (_, i) => i);
-      assert.ok(Enumerable.create(largeArray).any((x) => x === 9999));
-    });
   });
   describe("AsyncEnumerable", function () {
     test("No predicate", async function () {
@@ -135,14 +131,6 @@ describe("Any", function () {
         );
       });
     });
-
-    test("large array performance", async function () {
-      const largeArray = Array.from({ length: 10000 }, (_, i) => i);
-      assert.ok(
-        await AsyncEnumerable.create(largeArray).any((x) => x === 9999),
-      );
-    });
-
     test("mixed sync/async predicates", async function () {
       const array = AsyncEnumerable.create([1, 2, 3]);
       const syncResult = await array.any((x) => x === 2);

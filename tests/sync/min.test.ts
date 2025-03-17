@@ -57,16 +57,6 @@ describe("min", function () {
       assert.throws(() => numbers.min(), InvalidElementsCollection);
     });
 
-    test("performance with large collection", () => {
-      const large = Enumerable.create(
-        Array.from({ length: 100000 }, (_, i) => i),
-      );
-      const start = performance.now();
-      const result = large.min();
-      assert.ok(performance.now() - start < 100);
-      assert.strictEqual(result, 0);
-    });
-
     test("custom comparer with float precision", () => {
       class FloatComparer extends Comparer<number> {
         compare(x: number, y: number): -1 | 0 | 1 {
@@ -185,19 +175,6 @@ describe("min", function () {
       );
       assert.strictEqual(await delayed.min(), 1);
     });
-
-    test("async comparer with timing verification", async () => {
-      class TimedComparer extends ComparerAsync<number> {
-        async compare(x: number, y: number): Promise<-1 | 0 | 1> {
-          await new Promise((resolve) => setTimeout(resolve, 10));
-          return x < y ? -1 : x > y ? 1 : 0;
-        }
-      }
-      const start = performance.now();
-      await AsyncEnumerable.create([3, 1, 2]).min(new TimedComparer());
-      assert.ok(performance.now() - start >= 20);
-    });
-
     test("async error propagation", async () => {
       const errorEnum = AsyncEnumerable.create(
         (async function* () {

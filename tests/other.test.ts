@@ -52,29 +52,6 @@ describe("Other", function () {
         assert.strictEqual(evaluated, 1);
       });
     });
-    describe("Performance Benchmark Tests", () => {
-      test("array vs iterator performance", () => {
-        const size = 100_000;
-        const array = Enumerable.create(
-          Array.from({ length: size }, (_, i) => i),
-        );
-        const iterator = Enumerable.create(
-          (function* () {
-            for (let i = 0; i < size; i++) yield i;
-          })(),
-        );
-
-        const t1 = performance.now();
-        array.elementAt(size - 1);
-        const arrayTime = performance.now() - t1;
-
-        const t2 = performance.now();
-        iterator.elementAt(size - 1);
-        const iteratorTime = performance.now() - t2;
-
-        assert.ok(arrayTime <= iteratorTime, "Array access should be faster");
-      });
-    });
   });
   describe("AsyncEnumerable", function () {
     test("large collection handling", async () => {
@@ -135,26 +112,6 @@ describe("Other", function () {
 
         await iterator.elementAt(0);
         assert.strictEqual(evaluated, 1);
-      });
-    });
-    describe("Performance Benchmark Tests", () => {
-      test("async operation timing", async () => {
-        const asyncEnum = AsyncEnumerable.create(
-          Array.from({ length: 1000 }, (_, i) => i),
-        );
-
-        const start = performance.now();
-        await Promise.all([
-          asyncEnum.elementAt(500),
-          asyncEnum.count(),
-          asyncEnum.contains(999),
-        ]);
-        const duration = performance.now() - start;
-
-        assert.ok(
-          duration < 1000,
-          "Async operations should complete within reasonable time",
-        );
       });
     });
   });

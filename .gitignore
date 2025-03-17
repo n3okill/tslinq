@@ -108,3 +108,5 @@ benchmarks
 benchmark/
 old/
 scripts/
+*.env
+lcov.info

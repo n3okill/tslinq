@@ -6,7 +6,7 @@ import {
 } from "../../src/index.ts";
 import { describe, test } from "node:test";
 import * as assert from "node:assert/strict";
-import { Person } from "../shared.ts";
+import { type Person } from "../shared.ts";
 
 describe("order", function () {
   class ReverseComparer extends Comparer<number> {

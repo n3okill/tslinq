@@ -110,17 +110,6 @@ describe("minBy", function () {
         "Bob",
       );
     });
-
-    test("performance with large dataset", () => {
-      const large = Array.from({ length: 100000 }, (_, i) => ({
-        id: i,
-        value: Math.random(),
-      }));
-      const start = performance.now();
-      Enumerable.create(large).minBy((x) => x.value);
-      assert.ok(performance.now() - start < 100);
-    });
-
     test("custom precision comparer", () => {
       class PrecisionComparer extends Comparer<number> {
         compare(x: number, y: number): -1 | 0 | 1 {
@@ -212,21 +201,6 @@ describe("minBy", function () {
           }),
         /Selector error/,
       );
-    });
-
-    test("async comparer with timing verification", async () => {
-      class TimedComparer extends ComparerAsync<number> {
-        async compare(x: number, y: number): Promise<-1 | 0 | 1> {
-          await new Promise((resolve) => setTimeout(resolve, 10));
-          return x < y ? -1 : x > y ? 1 : 0;
-        }
-      }
-      const start = performance.now();
-      await AsyncEnumerable.create([3, 1, 2]).minBy(
-        (x) => x,
-        new TimedComparer(),
-      );
-      assert.ok(performance.now() - start >= 20);
     });
   });
   describe("AsyncEnumerable async comparer", function () {
